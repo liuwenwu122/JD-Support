@@ -1,0 +1,7 @@
+{
+  "name": "jd-support", // 匹配 CI 期望的 Worker 名称
+  "compatibility_date": "2025-11-25", // 今天的日期（必填）
+  "assets": {
+    "directory": "./dist" // 静态资源目录（和部署命令一致）
+  }
+}
