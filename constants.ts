@@ -3,13 +3,13 @@ import { ResumeData, ResumeProfile } from './types';
 
 const BASE_RESUME: ResumeData = {
   personalInfo: {
-    name: "刘华 (Liu Hua)",
+    name: "刘华",
     gender: "女",
     age: 23,
-    phone: "15811192902",
-    location: "辽宁沈阳",
-    hometown: "辽宁沈阳",
-    height: "162cm",
+    phone: "15811192830",
+    location: "辽宁|沈阳",
+    hometown: "辽宁|沈阳",
+    height: "163cm",
     weight: "51g"
   },
   summary: [
