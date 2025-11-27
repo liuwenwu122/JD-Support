@@ -1,6 +1,6 @@
 # CareerLift - AI 智能简历优化助手
 
-CareerLift 是一个基于 React 和 Google Gemini AI 的智能职业辅助平台。它不仅是一个简历编辑器，更能根据具体的目标职位（JD）深度分析简历，提供针对性的优化建议，并进行模拟面试。
+CareerLift 是一个基于 React + Vite 的智能职业辅助平台，支持 Google Gemini 与 OpenAI 规范。它不仅是一个简历编辑器，更能根据目标职位（JD）深度分析简历、提供定向优化建议，并进行模拟面试。
 
 ## ✨ 核心功能
 
@@ -29,50 +29,61 @@ CareerLift 是一个基于 React 和 Google Gemini AI 的智能职业辅助平�
 
 ## 🛠 技术栈
 
-*   **前端框架**: React 18+ (TypeScript)
-*   **构建工具**: Vite
-*   **样式库**: Tailwind CSS, Lucide React (图标)
-*   **AI 模型**: Google Gemini API (`gemini-2.5-flash` for text/vision)
-*   **数据存储**: 
-    *   本地存储 (Local Storage) - 默认兜底
-    *   Supabase (PostgreSQL) - 可选，支持云端同步
-*   **工具库**: `html2pdf.js` (PDF 导出), `@google/genai` (SDK)
+- **前端框架**: React 19+ (TypeScript)
+- **构建工具**: Vite
+- **样式库**: Tailwind CSS, Lucide React (图标)
+- **AI 提供方**: Google Gemini 或 OpenAI（可切换）
+- **数据存储**:
+  - 本地存储 (Local Storage) - 默认兜底
+  - Supabase (PostgreSQL) - 可选，支持云端同步
+- **工具库**: `html2pdf.js` (PDF 导出), `@google/genai` (SDK)
 
 ## 🚀 本地开发指南
 
-1.  **克隆项目**
-    ```bash
-    git clone <repository-url>
-    cd career-lift
-    ```
+1. **克隆项目**
+   ```bash
+   git clone <repository-url>
+   cd career-lift
+   ```
 
-2.  **安装依赖**
-    ```bash
-    npm install
-    ```
+2. **安装依赖**
+   ```bash
+   npm install
+   ```
 
-3.  **配置环境变量**
-    在项目根目录创建 `.env` 文件（或设置系统环境变量）：
-    ```env
-    # 必须：Google Gemini API Key
-    API_KEY=your_google_gemini_api_key
-    
-    # 可选：Supabase 配置 (如需云端存储)
-    REACT_APP_SUPABASE_URL=your_supabase_url
-    REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
+3. **配置环境变量**（Vite 仅注入以 `VITE_` 开头的变量）
+   在项目根目录创建 `.env` 文件：
+   ```env
+   # 选择提供方：google / openai
+   VITE_AI_PROVIDER=google
+   
+   # 模型名（可留空使用默认：google->gemini-2.5-flash, openai->gpt-4o-mini）
+   VITE_AI_MODEL=
+   
+   # 通用 API Key（优先使用），或提供方专属变量回退
+   VITE_AI_API_KEY=your_api_key
+   VITE_GEMINI_API_KEY=your_google_key
+   VITE_OPENAI_API_KEY=your_openai_key
+   VITE_OPENAI_BASE_URL=https://api.openai.com/v1
 
-4.  **启动开发服务器**
-    ```bash
-    npm run dev
-    ```
+   # 可选：Supabase 云端存储
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **启动开发服务器**
+   ```bash
+   npm run dev
+   ```
 
 ## 📂 项目结构
 
-*   `src/components`: UI 组件 (简历视图, AI 分析面板, 面试机器人等)
-*   `src/services`: 核心业务逻辑 (Gemini AI 调用, 数据库服务)
-*   `src/types.ts`: TypeScript 类型定义
-*   `src/constants.ts`: 默认数据与常量
+- `src/main.tsx`：应用入口
+- `src/App.tsx`：根组件
+- `src/components/*`：UI 组件（简历视图、AI 分析、面试机器人等）
+- `src/services/*`：核心业务逻辑（AI 调用、数据库服务）
+- `src/types.ts`：TypeScript 类型定义
+- `src/constants.ts`：默认数据与常量
 
 ## 📄 许可证
 

@@ -3,14 +3,14 @@ import { ResumeData, ResumeProfile } from './types';
 
 const BASE_RESUME: ResumeData = {
   personalInfo: {
-    name: "刘慧 (Liu Hui)",
+    name: "刘慧 ",
     gender: "女",
     age: 29,
-    phone: "15811192902",
-    location: "广州荔湾",
-    hometown: "广州白云",
-    height: "158cm",
-    weight: "56kg"
+    phone: "15811172212",
+    location: "沈阳",
+    hometown: "沈阳",
+    height: "172cm",
+    weight: "50kg"
   },
   summary: [
     "拥有4年国有银行一线实战经验，熟悉零售业务及柜面流程，熟悉银行理财产品，并持AFP理财师证书。",
@@ -19,8 +19,8 @@ const BASE_RESUME: ResumeData = {
     "曾独立策划并执行数场客户营销活动，具备良好的沟通协调与跨部门协作能力。"
   ],
   education: {
-    school: "湖南文理学院芙蓉学院",
-    degree: "国际经济与贸易 | 统招本科",
+    school: "湖南文理学院",
+    degree: "国际经济 | 统招本科",
     duration: "2015.09-2019.06",
     details: [
       "核心课程：国际金融，微观经济学，宏观经济学，货币银行学，市场营销学等",
@@ -29,7 +29,7 @@ const BASE_RESUME: ResumeData = {
   },
   experience: [
     {
-      company: "中信银行广州分行",
+      company: "中信银行沈阳分行",
       role: "市场经理 | 银行",
       duration: "2020.12-2024.12",
       details: [
