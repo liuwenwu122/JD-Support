@@ -39,7 +39,11 @@ const UpdatePassword: React.FC = () => {
 
             if (error) throw error;
 
+            await supabase.auth.signOut();
             setSuccess(true);
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -56,7 +60,10 @@ const UpdatePassword: React.FC = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900">密码修改成功</h2>
                     <p className="text-gray-600 mt-2">
-                        您的密码已更新，请使用新密码登录。
+                        密码修改成功！请使用新密码重新登录。
+                    </p>
+                    <p className="text-sm text-gray-500 mt-4">
+                        正在跳转至登录页...
                     </p>
                     <div className="mt-8">
                         <Link

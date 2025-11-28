@@ -43,7 +43,7 @@ const ForgotPassword: React.FC = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900">邮件已发送</h2>
                     <p className="text-gray-600 mt-2">
-                        重置密码的链接已发送至 <strong>{email}</strong>
+                        重置链接已发送至 <strong>{email}</strong>
                     </p>
                     <p className="text-gray-500 text-sm mt-2">
                         请查收邮件并点击链接以设置新密码。

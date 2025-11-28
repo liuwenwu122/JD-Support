@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createNewProfile } from '../constants';
 import { AnalysisResult, Language, ResumeData, ResumeProfile, ResumeVersion } from '../types';
-import { analyzeResumeWithGemini, generateTags } from '../services/aiService';
+import { analyzeResume, generateTags } from '../services/aiService';
 import { db } from '../services/dbService';
 import ResumeView from './ResumeView';
 import AnalysisPanel from './AnalysisPanel';
@@ -15,6 +15,7 @@ import MobileNav from './MobileNav';
 import MobileMenu from './MobileMenu';
 import Navbar from './Navbar';
 import SettingsModal from './SettingsModal';
+import ConfirmModal from './ConfirmModal';
 import { FileText, Activity, Globe, Briefcase, Tag, ChevronLeft, Save, History, Loader2, CheckCircle2, Target, PenLine, LogOut, Menu, Settings } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useAI } from '../contexts/AIContext';
@@ -32,6 +33,7 @@ const MainLayout: React.FC = () => {
     const [showTargetModal, setShowTargetModal] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const [profileToDelete, setProfileToDelete] = useState<string | null>(null);
 
 
     // App Config State
@@ -111,11 +113,23 @@ const MainLayout: React.FC = () => {
         handleCreateProfile(name, data, 'General', '');
     };
 
-    const handleDeleteProfile = async (id: string) => {
-        if (confirm(language === 'zh' ? "确定要删除这个简历吗？" : "Are you sure you want to delete this resume?")) {
-            await db.deleteProfile(id);
-            setProfiles(prev => prev.filter(p => p.id === id ? false : true));
-            if (activeProfileId === id) setActiveProfileId(null);
+    const handleDeleteProfile = (id: string) => {
+        setProfileToDelete(id);
+    };
+
+    const confirmDelete = async () => {
+        if (!profileToDelete) return;
+
+        try {
+            await db.deleteProfile(profileToDelete);
+            setProfiles(prev => prev.filter(p => p.id === profileToDelete ? false : true));
+            if (activeProfileId === profileToDelete) setActiveProfileId(null);
+            showNotification(language === 'zh' ? "简历已删除" : "Resume deleted");
+        } catch (e) {
+            console.error("Delete failed", e);
+            showNotification(language === 'zh' ? "删除失败，请重试" : "Failed to delete resume", 'error');
+        } finally {
+            setProfileToDelete(null);
         }
     };
 
@@ -225,7 +239,7 @@ const MainLayout: React.FC = () => {
         setIsAnalyzing(true);
         setActiveTab('analysis');
         try {
-            const result = await analyzeResumeWithGemini(
+            const result = await analyzeResume(
                 resumeData,
                 activeProfile.targetRole,
                 language,
@@ -329,6 +343,20 @@ const MainLayout: React.FC = () => {
                 <SettingsModal
                     isOpen={showSettingsModal}
                     onClose={() => setShowSettingsModal(false)}
+                    language={language}
+                />
+
+                {/* Delete Confirmation Modal */}
+                <ConfirmModal
+                    isOpen={!!profileToDelete}
+                    onClose={() => setProfileToDelete(null)}
+                    onConfirm={confirmDelete}
+                    title={language === 'zh' ? '删除简历' : 'Delete Resume'}
+                    message={language === 'zh'
+                        ? '确定要删除这个简历吗?此操作无法撤销。'
+                        : 'Are you sure you want to delete this resume? This action cannot be undone.'}
+                    confirmText={language === 'zh' ? '删除' : 'Delete'}
+                    type="danger"
                     language={language}
                 />
             </div>
@@ -528,6 +556,20 @@ const MainLayout: React.FC = () => {
             <SettingsModal
                 isOpen={showSettingsModal}
                 onClose={() => setShowSettingsModal(false)}
+                language={language}
+            />
+
+            {/* Delete Confirmation Modal */}
+            <ConfirmModal
+                isOpen={!!profileToDelete}
+                onClose={() => setProfileToDelete(null)}
+                onConfirm={confirmDelete}
+                title={language === 'zh' ? '删除简历' : 'Delete Resume'}
+                message={language === 'zh'
+                    ? '确定要删除这个简历吗？此操作无法撤销。'
+                    : 'Are you sure you want to delete this resume? This action cannot be undone.'}
+                confirmText={language === 'zh' ? '删除' : 'Delete'}
+                type="danger"
                 language={language}
             />
         </div>

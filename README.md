@@ -1,6 +1,6 @@
-# CareerLift - AI 智能简历优化助手
+# JD-Support - AI 智能简历优化助手
 
-CareerLift 是一个基于 React + Vite 的智能职业辅助平台，支持 Google Gemini 与 OpenAI 规范。它不仅是一个简历编辑器，更能根据目标职位（JD）深度分析简历、提供定向优化建议，并进行模拟面试。
+JD-Support 是一个基于 React + Vite 的智能职业辅助平台，支持 Google Gemini 与 OpenAI 规范。它不仅是一个简历编辑器，更能根据目标职位（JD）深度分析简历、提供定向优化建议，并进行模拟面试。
 
 ## ✨ 核心功能
 

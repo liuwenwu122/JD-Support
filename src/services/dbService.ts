@@ -75,7 +75,8 @@ export const db = {
 
     deleteProfile: async (id: string): Promise<void> => {
         if (isSupabaseConfigured() && supabase) {
-            await supabase.from('profiles').delete().eq('id', id);
+            const { error } = await supabase.from('profiles').delete().eq('id', id);
+            if (error) throw error;
         } else {
             const profiles = loadLocal();
             saveLocal(profiles.filter(p => p.id !== id));

@@ -36,7 +36,7 @@ const InterviewBot: React.FC<InterviewBotProps> = ({ targetRole, language, jobDe
 
   const startInterview = async () => {
     // Rely on the jobDescription prop passed from parent
-    const chatSession = createInterviewSession(targetRole, language, jobDescription, settings);
+    const chatSession = await createInterviewSession(targetRole, language, jobDescription, settings);
     setSession(chatSession);
     setHasStarted(true);
     setIsTyping(true);

@@ -31,6 +31,7 @@ const Register: React.FC = () => {
                     data: {
                         full_name: fullName,
                     },
+                    emailRedirectTo: window.location.origin + '/login',
                 },
             });
 
@@ -68,7 +69,7 @@ const Register: React.FC = () => {
                         验证邮件已发送至 <strong>{email}</strong>
                     </p>
                     <p className="text-gray-500 text-sm mt-2">
-                        请查收邮件并点击确认链接以激活您的账号。
+                        请查收邮件并点击链接以激活您的账号。激活后即可登录。
                     </p>
                     <div className="mt-8">
                         <Link
@@ -87,7 +88,7 @@ const Register: React.FC = () => {
         <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-lg">
                 <div className="text-center">
-                    <div className="mx-auto h-12 w-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                    <div className="mx-auto h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                         <UserPlus size={24} />
                     </div>
                     <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
@@ -153,7 +154,7 @@ const Register: React.FC = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="group relative flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:opacity-70"
+                            className="group relative flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-70"
                         >
                             {loading ? <Loader2 className="animate-spin mr-2" size={20} /> : null}
                             注册

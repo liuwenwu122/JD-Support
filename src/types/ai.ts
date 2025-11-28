@@ -13,3 +13,5 @@ export const DEFAULT_AI_SETTINGS: AISettings = {
     modelName: (import.meta as any).env.VITE_AI_MODEL_NAME || 'gemini-2.5-flash',
     baseUrl: (import.meta as any).env.VITE_AI_BASE_URL || 'https://api.openai.com/v1'
 };
+
+export type AIChatSession = any;

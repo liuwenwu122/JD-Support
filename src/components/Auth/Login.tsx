@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import { useNavigate, Link } from 'react-router-dom';
 import { Loader2, LogIn } from 'lucide-react';
@@ -9,6 +9,16 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (supabase) {
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                if (session) {
+                    navigate('/');
+                }
+            });
+        }
+    }, [navigate]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -68,14 +78,6 @@ const Login: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="sr-only">密码</label>
-                                <div className="text-sm">
-                                    <Link to="/forgot-password" className="font-semibold text-blue-600 hover:text-blue-500">
-                                        忘记密码？
-                                    </Link>
-                                </div>
-                            </div>
                             <input
                                 id="password"
                                 name="password"
@@ -87,6 +89,14 @@ const Login: React.FC = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="sr-only">密码</label>
+                                <div className="text-sm">
+                                    <Link to="/forgot-password" className="font-semibold text-blue-600 hover:text-blue-500">
+                                        忘记密码？
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
